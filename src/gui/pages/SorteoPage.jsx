@@ -57,6 +57,7 @@ export default function SorteoPage() {
         try{
             verificarQueFueronSeteadasLasPrimeras4Posiciones(categorias)
         }catch(error){
+            event.target.removeAttribute('disabled')
             alert(error.message)
             return
         }
@@ -171,11 +172,21 @@ function getRandomPlayer(players){
 }
 
 function getMatchPositions(){
-    return [
+    /*return [
         [1, 32], [16, 17], [9, 24], [8, 25],
         [5, 28], [12, 21], [13, 20], [4, 29],
         [3, 30], [14, 19], [11, 22], [6, 27],
         [7, 26], [10, 23], [15, 18], [2, 31]
+    ]*/
+    return [
+        [1, 64], [32, 33], [17, 48], [16, 49],
+        [9, 56], [24, 41], [25, 40], [8, 57],
+        [5, 60], [28, 37], [21, 44], [12, 53],
+        [13, 52], [20, 45], [29, 36], [4, 61],
+        [3, 62], [30, 35], [19, 46], [14, 51],
+        [11, 54], [22, 43], [27, 38], [6, 59],
+        [7, 58], [26, 39], [23, 42], [10, 55],
+        [15, 50], [18, 47], [31, 34], [2, 63]
     ]
 }
 

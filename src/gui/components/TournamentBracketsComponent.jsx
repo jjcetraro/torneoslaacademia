@@ -3,7 +3,7 @@ import '../styles/GeneralStyles.css'
 export default function TournamentBracketsComponent({tournament}) {
 
     const tableRows = []
-    const lastMatchAddedPerPhase = [0, 0, 0, 0, 0]
+    const lastMatchAddedPerPhase = [0, 0, 0, 0, 0, 0]
     for(let i = 0; i < Math.pow(2, tournament.getPhasesCount()); i++){
         const tableCells = []
         for(let j = 0; j < tournament.getPhasesCount(); j++){

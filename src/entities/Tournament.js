@@ -12,5 +12,5 @@ export default class Tournament {
     getPhases() { return this._phases }
 
     //getPhasesCount() { return this._phases.length }
-    getPhasesCount() { return 5 }
+    getPhasesCount() { return 6 }
 }
