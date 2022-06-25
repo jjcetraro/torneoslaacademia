@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+
 td {
-    width: 200px
+    width: 230px
 }
 
 .bb {
@@ -8,4 +10,8 @@ td {
 
 .br {
     border-right: 1px solid black;
+}
+
+.monospaceFont {
+    font-family: 'Source Code Pro', monospace;
 }
