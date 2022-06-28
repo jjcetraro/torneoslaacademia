@@ -17,15 +17,25 @@ export default function RankingPage() {
                             <tr>
                                 <th style={{maxWidth: '20px'}}>#</th>
                                 <th>Jugador</th>
+                                <th style={{maxWidth: '20px'}}>E1</th>
+                                <th style={{maxWidth: '20px'}}>E2</th>
+                                <th style={{maxWidth: '20px'}}>E3</th>
+                                <th style={{maxWidth: '20px'}}>E4</th>
+                                <th style={{maxWidth: '20px'}}>E5</th>
                                 <th style={{maxWidth: '20px'}}>Pts</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
                                 ranking.getRankingRows().map((rankingRow, index) => {
-                                    return <tr key={rankingRow.getPosition()}>
-                                        <td style={{maxWidth: '20px'}}>{rankingRow.getPosition()}</td>
+                                    return <tr key={index}>
+                                        <td style={{maxWidth: '20px'}}>{index + 1}</td>
                                         <td>{rankingRow.getPlayerName()}</td>
+                                        <td style={{maxWidth: '20px'}}>{rankingRow.getE1()}</td>
+                                        <td style={{maxWidth: '20px'}}>{rankingRow.getE2()}</td>
+                                        <td style={{maxWidth: '20px'}}>{rankingRow.getE3()}</td>
+                                        <td style={{maxWidth: '20px'}}>{rankingRow.getE4()}</td>
+                                        <td style={{maxWidth: '20px'}}>{rankingRow.getE5()}</td>
                                         <td style={{maxWidth: '20px'}}>{rankingRow.getScore()}</td>
                                     </tr>
                                 })
