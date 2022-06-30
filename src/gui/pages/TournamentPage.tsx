@@ -1,11 +1,13 @@
 // external libraries
 import { useParams } from 'react-router-dom'
 import { Col, Row, Spinner } from 'react-bootstrap'
+import Media from 'react-media'
 
 
 import TournamentPageHooks from '../hooks/TournamentPageHooks'
 
 import TournamentBracketsComponent from '../components/TournamentBracketsComponent'
+import TournamentComponent_Mobile from '../components/TournamentComponent_Mobile'
 
 export default function TournamentPage() {
 
@@ -26,14 +28,26 @@ export default function TournamentPage() {
               </Col>
           </Row>
         :
-        <>
-          <h1>{tournament?.getTournamentGroupName()}</h1>
-          <h3>{tournament?.getName()}</h3>
-          <TournamentBracketsComponent
-            tournament={tournament}
-            permitEdition={true}
-          />
-        </>
+        <Media query='(max-width: 600px)'>
+          {
+            matches => {
+              return (
+                matches
+                ?
+                  <TournamentComponent_Mobile tournament={tournament}/>
+                :
+                <>
+                  <h1>{tournament?.getTournamentGroupName()}</h1>
+                  <h3>{tournament?.getName()}</h3>
+                  <TournamentBracketsComponent
+                    tournament={tournament}
+                    permitEdition={true}
+                  />
+                </>
+              )
+            }
+          }
+        </Media>
       }
     </>
 
