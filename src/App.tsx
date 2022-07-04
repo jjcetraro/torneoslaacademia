@@ -26,6 +26,7 @@ import PartidosPage from './gui/pages/PartidosPage'
 import SetMatchResultPage from './gui/pages/SetMatchResultPage'
 import AdminDashboardPage from './gui/pages/AdminDashboardPage'
 import PlayerPage from './gui/pages/PlayerPage'
+import PartidosPorJugarPage from './gui/pages/PartidosPorJugarPage'
 
 
 export default function App() {
@@ -50,6 +51,7 @@ export default function App() {
             <Route path='/admin_dashboard' element={<AdminDashboardPage/>}/>
             <Route path='/jugador/:id' element={<PlayerPage/>}/>
             <Route path='/sorteo' element={<SorteoPage/>}/>
+            <Route path='/partidosPorJugar' element={<PartidosPorJugarPage/>}/>
           </Routes>
         </Container>
       </BrowserRouter>
