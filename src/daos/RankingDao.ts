@@ -197,7 +197,7 @@ export default function rankingDao(){
                 new RankingRow('M. Casamayou', 2, 0, 0, 0, 0),
                 new RankingRow('F. Scalone', 2, 2, 0, 0, 0),
                 new RankingRow('F. Delgado', 0, 60, 0, 0, 0),
-                new RankingRow('R. Lagomarsino', 0, 60, 0, 0, 0),
+                new RankingRow('R. Lagomarsino', 0, 35, 0, 0, 0),
                 new RankingRow('M. Cardone', 0, 35, 0, 0, 0),
                 new RankingRow('E. Martínez', 0, 18, 0, 0, 0),
                 new RankingRow('G. Mesorio', 0, 18, 0, 0, 0),
