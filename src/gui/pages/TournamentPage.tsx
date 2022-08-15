@@ -28,26 +28,34 @@ export default function TournamentPage() {
               </Col>
           </Row>
         :
-        <Media query='(max-width: 600px)'>
-          {
-            matches => {
-              return (
-                matches
-                ?
-                  <TournamentComponent_Mobile tournament={tournament}/>
-                :
-                <>
-                  <h1>{tournament?.getTournamentGroupName()}</h1>
-                  <h3>{tournament?.getName()}</h3>
-                  <TournamentBracketsComponent
-                    tournament={tournament}
-                    permitEdition={true}
-                  />
-                </>
-              )
+        (
+          tournament?.getPhases() && tournament?.getPhases().length > 0
+          ?
+          <Media query='(max-width: 600px)'>
+            {
+              matches => {
+                return (
+                  matches
+                  ?
+                    <TournamentComponent_Mobile tournament={tournament}/>
+                  :
+                  <>
+                    <h1>{tournament?.getTournamentGroupName()}</h1>
+                    <h3>{tournament?.getName()}</h3>
+                    <TournamentBracketsComponent
+                      tournament={tournament}
+                      permitEdition={true}
+                    />
+                  </>
+                )
+              }
             }
-          }
-        </Media>
+          </Media>
+          :
+          tournament?.getPlayers()?.map((player, index) => {
+            return <h3 key={index}>{player.getName()}</h3>
+          })
+        )
       }
     </>
 
