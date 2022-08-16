@@ -57,7 +57,7 @@ export default function matchDao(){
             date: ''
         }
         if(match.getDate()){
-            matchDoc.date = match.getDate().toLocaleDateString("en-US")
+            matchDoc.date = match.getDate() ? '' : ''
         }
         await updateDoc(doc(db, 'match', match.getId()), matchDoc)
     }

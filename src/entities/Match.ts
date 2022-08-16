@@ -6,12 +6,12 @@ export default class Match {
     private id: string
     private player1: Player | null
     private player2: Player | null
-    private date: Date
+    private date: Date | null
     private result: MatchResult
     private wo: boolean
     private player1Wins: boolean
 
-    constructor(id: string, player1: Player | null, player2: Player | null, date: Date,
+    constructor(id: string, player1: Player | null, player2: Player | null, date: Date | null,
         result: MatchResult, wo: boolean, player1Wins: boolean){
         this.id = id
         this.player1 = player1
@@ -30,4 +30,9 @@ export default class Match {
     getResult() { return this.result }
     isWO() { return this.wo }
     isPlayer1Wins() { return this.player1Wins }
+    isFinished() {
+        console.log(`match: ${this.isWO()} || ${this.getResult()}`)
+        console.log(this.getResult())
+        return this.isWO() || !this.getResult().isEmpty()
+    }
 }

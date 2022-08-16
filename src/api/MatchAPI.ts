@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios"
 import Match from "../entities/Match"
-import { convertToMatchJsonResponse } from "./UtilsAPI"
+import { MatchJsonResponse } from "./Types"
+import { convertToMatch, convertToMatchJsonResponse } from "./UtilsAPI"
 
 export const updateMatch = async (match: Match) : Promise<void> => {
     try{
@@ -8,4 +9,14 @@ export const updateMatch = async (match: Match) : Promise<void> => {
     } catch(error){
         throw error
     }
+}
+
+export const getMatchesByPlayerId = async (playerId: string) : Promise<Match[]> => {
+    let response : AxiosResponse<MatchJsonResponse[]>
+    try{
+        response = await axios.get(`${process.env.REACT_APP_TENNIS_API_URL}/players/${playerId}/matches`)
+    }catch(error){
+        throw error
+    }
+    return response.data.map(matchJsonResponse => convertToMatch(matchJsonResponse))
 }

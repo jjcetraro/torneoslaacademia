@@ -10,4 +10,14 @@ export default class MatchResult {
 
     getPlayer1() { return this.player1 }
     getPlayer2() { return this.player2 }
+
+    isEmpty() {
+        for(let i = 0; i < this.getPlayer1().length; i++){
+            if(this.getPlayer1()[i] !== 0) return false
+        }
+        for(let i = 0; i < this.getPlayer2().length; i++){
+            if(this.getPlayer2()[i] !== 0) return false
+        }
+        return true
+    }
 }

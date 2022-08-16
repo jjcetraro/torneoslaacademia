@@ -10,7 +10,7 @@ export const convertToMatch = (matchJsonResponse: MatchJsonResponse): Match => {
         matchJsonResponse.id, 
         matchJsonResponse.player1 ? convertToPlayer(matchJsonResponse.player1) : null,
         matchJsonResponse.player2 ? convertToPlayer(matchJsonResponse.player2) : null,
-        new Date(), 
+        matchJsonResponse.date ? new Date(matchJsonResponse.date) : null, 
         parseMatchResult(matchJsonResponse.result),
         false, 
         matchJsonResponse.player1Wins

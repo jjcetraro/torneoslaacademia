@@ -3,11 +3,14 @@ import { Button, Form } from 'react-bootstrap'
 
 import MessagePage from './MessagePage'
 
-import { collection, getDocs, updateDoc, doc, addDoc } from 'firebase/firestore'
+import { collection, updateDoc, doc, addDoc } from 'firebase/firestore'
 import { db } from '../../firebase/Firebase'
 
-import playerDaoCreator from '../../daos/PlayerDao'
 import Player from '../../entities/Player'
+import { getPlayers } from '../../api/PlayerAPI'
+import { getTournament } from '../../api/TournamentAPI'
+
+import { v4 as uuidv4 } from 'uuid';
 
 export default function SorteoPage() {
     
@@ -16,25 +19,13 @@ export default function SorteoPage() {
 
     useEffect(() => {
         const init = async () => {
-            const datos = await getDocs(collection(db, 'tournamentGroup'))
-            let _tournamentGroupId
-            let tournamentGroupData: any
-            datos.forEach(doc => {
-                _tournamentGroupId = doc.id
-                tournamentGroupData = doc.data()
-            })
-            if(!tournamentGroupData) return
-            const playerDao = playerDaoCreator()
-            const players = await playerDao.getPlayers()
             const _tournaments = []
-            for(let i = 0; i < tournamentGroupData.tournaments.length; i++){
-                const tournament = tournamentGroupData.tournaments[i]
-                tournament.players = tournament.players.map((playerId: string) => {
-                    return players.filter(player => player.getId() === playerId)[0]
-                })
-                _tournaments.push(tournament)
-            }
-            setTournamentGroupId(_tournamentGroupId)
+            _tournaments.push(await getTournament('f45a320e-a395-4f61-b260-0d6c97b85d73'))
+            _tournaments.push(await getTournament('0258f681-d3a9-47a8-9709-b3ccf5756c5a'))
+            _tournaments.push(await getTournament('7ba6d95f-27e7-42ff-8cc1-a5d497d35ac9'))
+            _tournaments.push(await getTournament('cac38751-b20b-40fb-b79a-b6ac1a6fddbc'))
+            _tournaments.push(await getTournament('9d860b1e-09af-49c0-80f0-a99dfcf1faf7'))
+            setTournamentGroupId('099eb0d8-85fd-4b25-a8ea-1fe0b34e7e86')
             setTournaments(_tournaments)
         }
         init()
@@ -85,46 +76,47 @@ export default function SorteoPage() {
         const tournamentsCopy: any = []
         for(let i = 0; i < tournaments.length; i++){
             tournamentsCopy.push({
-                name: tournaments[i].name,
+                tournamentId: tournaments[i].id,
                 players: tournaments[i].players,
                 phases: []
             })
         }
+        let nextPhaseId = 81
         for(let i = 0; i < categorias.length; i++){
             const categoria = categorias[i]
             const phases = []
-            const phase: {number: number, matches: string[]} = {number: 1, matches: []}
+            const phase: {id: number, number: number, matches: any[]} = {id: (nextPhaseId++), number: 1, matches: []}
             phases.push(phase)
             for(let j = 0; j < matchPositions.length; j++){
                 const matchP = matchPositions[j]
                 const player1 = getPlayerByPosition(categoria.players, `${matchP[0]}`)
                 const player2 = getPlayerByPosition(categoria.players, `${matchP[1]}`)
                 const match = {
-                    id: '',
+                    id: uuidv4(),
                     player1: player1 ? player1.id : null, 
                     player2: player2 ? player2.id : null
                 }
 
-                const dbResult = await addDoc(collection(db, 'match'), match)
-                match.id = dbResult.id
+                //const dbResult = await addDoc(collection(db, 'match'), match)
+                //match.id = dbResult.id
                 console.log(`match added!`)
 
-                phase.matches.push(match.id)
+                phase.matches.push(match)
             }
             for(let j = 2; j <= 6; j++){
-                const phase2: {number: number, matches: string[]} = {number: j, matches: []}
-                for(let k = 0; k <= Math.pow(2, 6 - j) ; k++){
+                const phase2: {id: number, number: number, matches: any[]} = {id: (nextPhaseId++), number: j, matches: []}
+                for(let k = 0; k <= Math.pow(2, 6 - j) - 1; k++){
                     const match = {
-                        id: '',
+                        id: uuidv4(),
                         player1: null, 
                         player2: null
                     }
     
-                    const dbResult = await addDoc(collection(db, 'match'), match)
-                    match.id = dbResult.id
+                    //const dbResult = await addDoc(collection(db, 'match'), match)
+                    //match.id = dbResult.id
                     console.log(`match added!`)
     
-                    phase2.matches.push(match.id)
+                    phase2.matches.push(match)
                 }
                 phases.push(phase2)
             }
@@ -135,11 +127,26 @@ export default function SorteoPage() {
         }
 
         if(!tournamentGroupId) return
-        await updateDoc(doc(db, 'tournamentGroup', tournamentGroupId), {
-            tournaments: tournamentsCopy
-        })
-        
-        window.location.href = '/tournaments'
+        //await updateDoc(doc(db, 'tournamentGroup', tournamentGroupId), {
+        //    tournaments: tournamentsCopy
+        //})
+        console.log(tournamentsCopy)
+
+        for(let i = 0; i < tournamentsCopy.length; i++){
+            const tournamentCopy = tournamentsCopy[i]
+            for(let j = 0; j < tournamentCopy.phases.length; j++){
+                const phase = tournamentCopy.phases[j]
+                console.log(`insert into tennis_api.tournament_phase values (${phase.id}, ${phase.number}, '${tournamentCopy.tournamentId}');`)
+                for(let k = 0; k < phase.matches.length; k++){
+                    const match = phase.matches[k]
+                    const player1 = match.player1 ? `'${match.player1}'` : 'null'
+                    const player2 = match.player2 ? `'${match.player2}'` : 'null'
+                    console.log("INSERT INTO `tennis_api`.`match` (`id`, `player1_id`, `player1_wins`, `player2_id`, `tournament_phase_id`, `index_in_tournament_phase`) VALUES ('"+match.id+"', "+player1+", false, "+player2+", '"+phase.id+"', "+k+");")
+                }
+            }
+        }
+
+        //window.location.href = '/tournaments'
     }
     
     return (
@@ -230,15 +237,15 @@ function getPlayerByPosition(players: any, position: any){
 }
 
 function getCategoryIndex(categoryName: string){
-    if(categoryName === 'Categoría A'){
+    if(categoryName.startsWith('Categoría A')){
         return 0
-    }else if(categoryName === 'Categoría B'){
+    }else if(categoryName.startsWith('Categoría B')){
         return 1
-    }else if(categoryName === 'Categoría C'){
+    }else if(categoryName.startsWith('Categoría C')){
         return 2
-    }else if(categoryName === 'Categoría D'){
+    }else if(categoryName.startsWith('Categoría D')){
         return 3
-    }else if(categoryName === 'Categoría E'){
+    }else if(categoryName.startsWith('Categoría E')){
         return 4
     }
 }

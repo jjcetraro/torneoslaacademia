@@ -49,7 +49,7 @@ export default function App() {
             <Route path='/partidos' element={<PartidosPage/>}/>
             <Route path='/cargar_resultado' element={<SetMatchResultPage/>}/>
             <Route path='/admin_dashboard' element={<AdminDashboardPage/>}/>
-            <Route path='/jugador/:id' element={<PlayerPage/>}/>
+            <Route path='/jugadores/:id' element={<PlayerPage/>}/>
             <Route path='/sorteo' element={<SorteoPage/>}/>
             <Route path='/partidosPorJugar' element={<PartidosPorJugarPage/>}/>
           </Routes>

@@ -6,9 +6,10 @@ import { useParams } from 'react-router-dom'
 import { Col, Image, Row, Spinner } from 'react-bootstrap'
 import { useEffect, useState } from 'react'
 
-// daos
-import playerDaoCreator from '../../daos/PlayerDao'
 import Player from '../../entities/Player'
+import { getMatchesByPlayerId } from '../../api/MatchAPI'
+import Match from '../../entities/Match'
+import MatchComponent_Mobile from '../components/MatchComponent_Mobile'
 
 
 export default function PlayerPage() {
@@ -16,12 +17,13 @@ export default function PlayerPage() {
     const { id } = useParams();
 
     const [player, setPlayer] = useState<Player>()
+    const [matches, setMatches] = useState<Match[]>()
 
     useEffect(() => {
         const initPage = async () => {
             if(id){
-                const playerDao = playerDaoCreator()
-                setPlayer(await playerDao.getPlayerById(id))
+                const matchesByPlayerId = await getMatchesByPlayerId(id)
+                setMatches(matchesByPlayerId.filter(match => match.isFinished()))
             }
         }
         initPage()
@@ -29,13 +31,19 @@ export default function PlayerPage() {
 
     
     return (
-        player
+        matches
         ?
-        <Row>
-            <Col>
-                <Image src={userImg}/>
-            </Col>
-        </Row>
+        <>
+        {
+            matches.map(match => {
+                return (
+                    <div style={{padding: '20px'}}>
+                        <MatchComponent_Mobile match={match}/>
+                    </div>
+                )
+            })
+        }
+        </>
         :
         <Row>
             <Col xs={12} className="text-center mt-5">
