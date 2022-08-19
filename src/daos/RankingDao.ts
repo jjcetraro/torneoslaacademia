@@ -23,7 +23,7 @@ export default function rankingDao(){
                 new RankingRow('L. Sanguinetti', 0, 8, 18, 0, 0),
                 new RankingRow('A. Karabelnik', 0, 8, 0, 0, 0),
                 new RankingRow('R. Da Costa', 0, 100, 18, 0, 0),
-                new RankingRow('F. Viera', 0, 60, 60, 0, 0),
+                new RankingRow('F. Viera', 0, 60, 100, 0, 0),
                 new RankingRow('J. Arias', 0, 0, 8, 0, 0),
                 new RankingRow('A. Recoba', 0, 0, 8, 0, 0)
             ], ),
