@@ -17,7 +17,7 @@ type TournamentsGroupJsonResponse = {
 export const getTournamentsGroups = async () : Promise<TournamentsGroup[]> => {
     let response : AxiosResponse<TournamentsGroupJsonResponse[]>
     try{
-        response = await axios.get(`${process.env.REACT_APP_TENNIS_API_URL}/tournamentsGroups`)
+        response = await axios.get(`${process.env.REACT_APP_TENNIS_API_URL}/organizations/${process.env.REACT_APP_TENNIS_API_ORGANIZATION_ID}/tournamentsGroups`)
     } catch(error){
         throw error
     }
