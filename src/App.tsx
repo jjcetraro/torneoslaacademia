@@ -39,13 +39,17 @@ export default function App() {
           <Routes>
             <Route path='/' element={<Navigate to="/torneos" />}/>
             <Route path='/tournamentSignUp' element={<TournamentSignUp/>}/>
-            <Route path='/ranking_anual' element={<RankingPage/>}/>
+            {
+              process.env.REACT_APP_SHOW_REGULATION === 'true' ? <Route path='/reglamento' element={<RegulationPage/>}/> : <></>
+            }
+            {
+              process.env.REACT_APP_SHOW_RANKING === 'true' ? <Route path='/ranking_anual' element={<RankingPage/>}/> : <></>
+            }
             <Route path='/torneos' element={<TournamentsPage/>}/>
             <Route path='/thanks' element={<MessagePage message="Gracias por registrarse en el torneo!"/>}/>
             <Route path='/jugadores' element={<PlayersPage/>}/>
             <Route path='/perfil' element={<UserProfilePage/>}/>
             <Route path='/torneo/:id' element={<TournamentPage/>}/>
-            <Route path='/reglamento' element={<RegulationPage/>}/>
             <Route path='/partidos' element={<PartidosPage/>}/>
             <Route path='/cargar_resultado' element={<SetMatchResultPage/>}/>
             <Route path='/admin_dashboard' element={<AdminDashboardPage/>}/>

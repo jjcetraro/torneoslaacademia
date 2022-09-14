@@ -10,13 +10,17 @@ export default function MyNavbar() {
                     aria-labelledby="offcanvasNavbarLabel"
                     placement="end">
                     <Offcanvas.Header closeButton>
-                        <Offcanvas.Title id="offcanvasNavbarLabel">TodoTenis</Offcanvas.Title>
+                        <Offcanvas.Title id="offcanvasNavbarLabel">{process.env.REACT_APP_NAME}</Offcanvas.Title>
                     </Offcanvas.Header>
                     <Offcanvas.Body>
                         <Nav className="justify-content-end flex-grow-1 pe-3">
                             <Nav.Link href="/jugadores">Jugadores</Nav.Link>
-                            <Nav.Link href="/ranking_anual">Ranking Anual</Nav.Link>
-                            <Nav.Link href="/reglamento">Reglamento</Nav.Link>
+                            {
+                                process.env.REACT_APP_SHOW_RANKING === 'true' ? <Nav.Link href="/ranking_anual">Ranking Anual</Nav.Link> : <></>
+                            }
+                            {
+                                process.env.REACT_APP_SHOW_REGULATION === 'true' ? <Nav.Link href="/reglamento">Reglamento</Nav.Link> : <></>
+                            }
                             <Nav.Link href="/torneos">Torneos</Nav.Link>
                         </Nav>
                     </Offcanvas.Body>
