@@ -13,21 +13,13 @@ export default function PlayersPage() {
   const {players} = PlayersPageHooks()
 
   return <>
-    <h1>Jugadores</h1>
+    <h1 className='text-center font-bold text-4xl'>Jugadores</h1>
     <Row>
       {
         players.map(player => {
-          return <Col key={player.getId()} sm={12} md={4} lg={3}>
-            <Card onClick={() => window.location.href = `/jugadores/${player.getId()}`}>
-              <Card.Img variant="top" src={userImg} style={{height: '150px', objectFit: 'contain', padding: '10px'}}/>
-              <Card.Body>
-                <Card.Title>{player.getName()}</Card.Title>
-                <Card.Text>
-                  Edad: {player.getAge() ? player.getAge() : '- '} años
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
+          return (
+            <div className='bg-blue-100 m-3 p-5 text-center text-xl cursor-pointer' onClick={() => window.location.href = `/jugadores/${player.getId()}`}>{player.getName()}</div>
+          )
         })
       }
     </Row>

@@ -41,7 +41,6 @@ export default function TournamentPage() {
                   :
                   <>
                     <h1>{tournament?.getTournamentGroupName()}</h1>
-                    <h3>{tournament?.getName()}</h3>
                     <TournamentBracketsComponent
                       tournament={tournament}
                       permitEdition={true}

@@ -176,7 +176,7 @@ export default function TournamentBracketsComponent({tournament, permitEdition})
 
     return (
     <>
-        <h1>{tournament.getName()}</h1>
+        <h1 className="font-bold text-2xl p-3 text-center">{tournament.getName()}</h1>
         <table>
             <tbody>
                 {tableRows}

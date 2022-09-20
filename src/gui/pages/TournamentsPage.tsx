@@ -1,9 +1,6 @@
-import { Button, Card, Col, Spinner, Row } from 'react-bootstrap'
-
 import TournamentsPageHooks from "../hooks/TournamentsPageHooks"
-
-import TournamentBracketsComponent from '../components/TournamentBracketsComponent'
 import Tournament from '../../entities/Tournament'
+import Button from "../components/Button"
 
 export default function TournamentsPage() {
 
@@ -18,46 +15,42 @@ export default function TournamentsPage() {
     }
 
     return <>
-        <h1>Torneos</h1>
+        <h1 className='font-bold text-4xl text-center'>Torneos</h1>
         {
             loading
             ?
-            <Row>
-                <Col xs={12} className="text-center mt-5">
-                    <Spinner animation="border" role="status" variant="primary">
-                        <span className="visually-hidden">Loading...</span>
-                    </Spinner>
-                </Col>
-            </Row>
+            <h1>Loading...</h1>
             :
             tournamentGroups.map(tournamentGroup => {
-                return <div key={tournamentGroup.getId()}>
-                    <h2>{tournamentGroup.getName()}</h2>
-                    <Row>
-                    {
-                        tournamentGroup.getTournaments().map(tournament => {
-                            return  <Col key={tournament.getName()} sm={12} md={3} lg={2}>
-                                <Card style={{ width: '18rem' }}>
-                                    <Card.Body>
-                                        <Card.Title>{tournament.getName()}</Card.Title>
-                                        {
-                                            tournament.isStarted()
-                                            ?
-                                            <>
-                                                <Button variant="primary" onClick={() => handleVerCuadro(tournament)}>Ver Cuadro</Button>
-                                            </>
-                                            :
-                                            <>
-                                                <Button variant="primary" onClick={handleInscribirme}>Inscribirme</Button>
-                                            </>
-                                        }
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                        })
-                    }
-                    </Row>
-                </div>
+                return (
+                    <div key={tournamentGroup.getId()}>
+                        <div className='font-bold text-center text-2xl mt-10'>{tournamentGroup.getName()}</div>
+                        {
+                            <div>
+                                {
+                                    tournamentGroup.getTournaments().map(tournament => {
+                                        return  (
+                                            <div key={tournament.getName()} className='bg-red-100 min-w-full my-5 p-5'>
+                                                <div className='font-bold text-xl text-center'>{tournament.getName()}</div>
+                                                {
+                                                    tournament.isStarted()
+                                                    ?
+                                                    <div className="text-center mt-5">
+                                                        <Button onClick={() => handleVerCuadro(tournament)} text='Ver Cuadro'/>
+                                                    </div>
+                                                    :
+                                                    <div className="text-center mt-5">
+                                                        <Button onClick={handleInscribirme} text='Inscribirme'/>
+                                                    </div>
+                                                }
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+                        }
+                    </div>
+                )
             })
             /*tournamentGroups.map(tournamentGroup => {
                 return <div key={tournamentGroup.getId()}>
