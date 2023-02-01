@@ -10,7 +10,7 @@ const MasterPage: React.FunctionComponent<IMasterPageProps> = ({
   return (
     <>
       <NavBar />
-      <div className="bg-gray-100 px-5 pt-24">{children}</div>
+      <div className="px-5 pt-24">{children}</div>
     </>
   );
 };
