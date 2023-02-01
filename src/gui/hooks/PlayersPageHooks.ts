@@ -1,24 +1,23 @@
 // external libraries
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
 
 // apis
-import { getPlayers } from '../../api/PlayerAPI'
+import { getPlayers } from "../../api/PlayerAPI";
 
 // entities
-import Player from '../../entities/Player'
+import Player from "../../entities/Player";
 
 const PlayersPageHooks = () => {
+  const [players, setPlayers] = useState<Player[]>();
 
-    const [players, setPlayers] = useState<Player[]>([])
+  useEffect(() => {
+    const initPage = async () => {
+      setPlayers(await getPlayers());
+    };
+    initPage();
+  }, []);
 
-    useEffect(() => {
-        const initPage = async () => {
-            setPlayers(await getPlayers())
-        }
-        initPage()
-    }, [])
+  return { players };
+};
 
-    return {players}
-}
-
-export default PlayersPageHooks
+export default PlayersPageHooks;

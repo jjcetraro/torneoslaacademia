@@ -1,6 +1,7 @@
 import TournamentsPageHooks from "../hooks/TournamentsPageHooks";
 import Tournament from "../../entities/Tournament";
 import Button from "../components/Button";
+import Spinner from "../components/Spinner";
 
 export default function TournamentsPage() {
   const { loading, tournamentGroups } = TournamentsPageHooks();
@@ -18,7 +19,9 @@ export default function TournamentsPage() {
       <h1 className="font-bold text-4xl text-center">Torneos</h1>
       {
         loading ? (
-          <h1>Loading...</h1>
+          <div className="pt-20 flex justify-center">
+            <Spinner />
+          </div>
         ) : (
           tournamentGroups.map((tournamentGroup) => {
             return (
