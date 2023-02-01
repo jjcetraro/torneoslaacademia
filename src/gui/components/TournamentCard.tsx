@@ -8,7 +8,6 @@ export interface ITournamentProps {
 const TournamentCard: React.FunctionComponent<ITournamentProps> = ({
   tournament,
 }) => {
-  console.log(tournament);
   return (
     <div
       className="bg-white shadow-md cursor-pointer p-5"

@@ -7,6 +7,7 @@ import { Button, Card, Col, Container, Row } from "react-bootstrap";
 // hooks
 import PlayersPageHooks from "../hooks/PlayersPageHooks";
 import Spinner from "../components/Spinner";
+import PlayerCard from "../components/PlayerCard";
 
 export default function PlayersPage() {
   const { players } = PlayersPageHooks();
@@ -22,13 +23,8 @@ export default function PlayersPage() {
         ) : (
           players.map((player) => {
             return (
-              <div
-                className="bg-blue-100 m-3 p-5 text-center text-xl cursor-pointer"
-                onClick={() =>
-                  (window.location.href = `/jugadores/${player.getId()}`)
-                }
-              >
-                {player.getName()}
+              <div className="my-5">
+                <PlayerCard player={player} />
               </div>
             );
           })
