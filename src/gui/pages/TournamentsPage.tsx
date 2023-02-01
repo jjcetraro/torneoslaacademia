@@ -2,16 +2,13 @@ import TournamentsPageHooks from "../hooks/TournamentsPageHooks";
 import Tournament from "../../entities/Tournament";
 import Button from "../components/Button";
 import Spinner from "../components/Spinner";
+import TournamentCard from "../components/TournamentCard";
 
 export default function TournamentsPage() {
   const { loading, tournamentGroups } = TournamentsPageHooks();
 
   const handleInscribirme = () => {
     alert("inscribirme");
-  };
-
-  const handleVerCuadro = (tournament: Tournament) => {
-    window.location.href = `torneo/${tournament.getId()}`;
   };
 
   return (
@@ -23,41 +20,23 @@ export default function TournamentsPage() {
             <Spinner />
           </div>
         ) : (
-          tournamentGroups.map((tournamentGroup) => {
+          tournamentGroups.map((tournamentGroup, tournamentGroupIndex) => {
             return (
-              <div key={tournamentGroup.getId()}>
+              <div key={tournamentGroupIndex}>
                 <div className="font-bold text-center text-2xl mt-10">
                   {tournamentGroup.getName()}
                 </div>
                 {
                   <div>
-                    {tournamentGroup.getTournaments().map((tournament) => {
-                      return (
-                        <div
-                          key={tournament.getName()}
-                          className="bg-white shadow-md min-w-full my-5 p-5"
-                        >
-                          <div className="font-bold text-xl text-center">
-                            {tournament.getName()}
+                    {tournamentGroup
+                      .getTournaments()
+                      .map((tournament, tournamentIndex) => {
+                        return (
+                          <div key={tournamentIndex} className="my-5">
+                            <TournamentCard tournament={tournament} />
                           </div>
-                          {tournament.isStarted() ? (
-                            <div className="text-center mt-5">
-                              <Button
-                                onClick={() => handleVerCuadro(tournament)}
-                                text="Ver Cuadro"
-                              />
-                            </div>
-                          ) : (
-                            <div className="text-center mt-5">
-                              <Button
-                                onClick={handleInscribirme}
-                                text="Inscribirme"
-                              />
-                            </div>
-                          )}
-                        </div>
-                      );
-                    })}
+                        );
+                      })}
                   </div>
                 }
               </div>

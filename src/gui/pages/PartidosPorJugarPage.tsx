@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { Col, Row, Spinner } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { getTournament } from "../../api/TournamentAPI";
 import Match from "../../entities/Match";
 import Phase from "../../entities/Phase";
 import Tournament from "../../entities/Tournament";
+import Spinner from "../components/Spinner";
 
 export default function PartidosPorJugarPage() {
   const [loading, setLoading] = useState<boolean>(true);
