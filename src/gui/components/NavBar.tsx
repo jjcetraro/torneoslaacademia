@@ -19,9 +19,9 @@ const NavBar: React.FunctionComponent<INavBarProps> = (props) => {
   const [open, setOpen] = useState<boolean>(false);
 
   return (
-    <div className="shadow-md w-full fixed top-0 left-0">
-      <div className="md:flex items-center justify-between bg-white py-4 md:px-10 px-7">
-        <div className="font-bold text-2xl cursor-pointer flex items-center text-gray-800">
+    <div className="bg-indigo-700 text-white shadow-md w-full fixed top-0 left-0">
+      <div className="md:flex items-center justify-between py-4 md:px-10 px-7">
+        <div className="font-bold text-2xl cursor-pointer flex items-center text-white">
           {process.env.REACT_APP_NAME}
         </div>
         <div
@@ -31,7 +31,7 @@ const NavBar: React.FunctionComponent<INavBarProps> = (props) => {
           <FontAwesomeIcon icon={open ? faClose : faBars}></FontAwesomeIcon>
         </div>
         <ul
-          className={`md:flex md:items-center md:pb-0 pb-12 absolute md:static bg-white md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-500 ease-in ${
+          className={`md:flex md:items-center md:pb-0 pb-12 absolute md:static bg-indigo-700 md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-500 ease-in ${
             open ? "top-15" : "top-[-490px]"
           }`}
         >
@@ -39,7 +39,7 @@ const NavBar: React.FunctionComponent<INavBarProps> = (props) => {
             return (
               <li key={index} className="md:ml-8 text-xl md:my-0 my-7">
                 <a
-                  className="text-gray-800 hover:text-gray-400 duration-500"
+                  className="text-white hover:text-gray-400 duration-500"
                   href={link.link}
                 >
                   {link.name}
