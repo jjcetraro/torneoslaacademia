@@ -7,6 +7,7 @@ type TournamentsGroupJsonResponse = {
   id: string;
   firestoreId: string;
   name: string;
+  createdDate: string;
   tournaments: [
     {
       id: string;
@@ -32,56 +33,67 @@ export const getTournamentsGroups = async (): Promise<TournamentsGroup[]> => {
   } catch (error) {
     throw error;
   }
-  return response.data.map((tournamentsGroupJsonResponse) => {
-    return new TournamentsGroup(
-      tournamentsGroupJsonResponse.id,
-      tournamentsGroupJsonResponse.name,
-      tournamentsGroupJsonResponse.tournaments.map((tournamentJsonResponse) => {
-        const result = new Tournament(
-          tournamentJsonResponse.id,
-          tournamentsGroupJsonResponse.id,
-          tournamentsGroupJsonResponse.name,
-          tournamentJsonResponse.name,
-          [],
-          [],
-          true
-        );
-        if (tournamentJsonResponse.winner) {
-          const winner = tournamentJsonResponse.winner;
-          result.setWinner(
-            new Player(
-              winner.id,
-              winner.name,
-              "",
-              "",
-              "",
-              new Date(),
-              "",
-              "",
-              "",
-              {}
-            )
-          );
-        }
-        if (tournamentJsonResponse.finalist) {
-          const finalist = tournamentJsonResponse.finalist;
-          result.setFinalist(
-            new Player(
-              finalist.id,
-              finalist.name,
-              "",
-              "",
-              "",
-              new Date(),
-              "",
-              "",
-              "",
-              {}
-            )
-          );
-        }
-        return result;
-      })
-    );
+  const result: TournamentsGroup[] = response.data.map(
+    (tournamentsGroupJsonResponse) => {
+      return new TournamentsGroup(
+        tournamentsGroupJsonResponse.id,
+        tournamentsGroupJsonResponse.name,
+        new Date(tournamentsGroupJsonResponse.createdDate),
+        tournamentsGroupJsonResponse.tournaments.map(
+          (tournamentJsonResponse) => {
+            const result = new Tournament(
+              tournamentJsonResponse.id,
+              tournamentsGroupJsonResponse.id,
+              tournamentsGroupJsonResponse.name,
+              tournamentJsonResponse.name,
+              [],
+              [],
+              true
+            );
+            if (tournamentJsonResponse.winner) {
+              const winner = tournamentJsonResponse.winner;
+              result.setWinner(
+                new Player(
+                  winner.id,
+                  winner.name,
+                  "",
+                  "",
+                  "",
+                  new Date(),
+                  "",
+                  "",
+                  "",
+                  {}
+                )
+              );
+            }
+            if (tournamentJsonResponse.finalist) {
+              const finalist = tournamentJsonResponse.finalist;
+              result.setFinalist(
+                new Player(
+                  finalist.id,
+                  finalist.name,
+                  "",
+                  "",
+                  "",
+                  new Date(),
+                  "",
+                  "",
+                  "",
+                  {}
+                )
+              );
+            }
+            return result;
+          }
+        )
+      );
+    }
+  );
+  result.sort((tournamentGroup1, tournamentGroup2) => {
+    return tournamentGroup1.getCreatedDate() < tournamentGroup2.getCreatedDate()
+      ? 1
+      : -1;
   });
+  return result;
 };

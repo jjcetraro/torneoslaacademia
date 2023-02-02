@@ -13,15 +13,12 @@ import TournamentsPage from "./gui/pages/TournamentsPage";
 import MessagePage from "./gui/pages/MessagePage";
 
 import { signInWithGoogle } from "./firebase/Firebase";
-import TournamentSignUp from "./gui/pages/TournamentSignUp";
 import LoginPage from "./gui/pages/LoginPage";
 import UserProfilePage from "./gui/pages/UserProfilePage";
 import SorteoPage from "./gui/pages/SorteoPage";
 import TournamentPage from "./gui/pages/TournamentPage";
 import RegulationPage from "./gui/pages/RegulationPage";
-import PartidosPage from "./gui/pages/PartidosPage";
 import SetMatchResultPage from "./gui/pages/SetMatchResultPage";
-import AdminDashboardPage from "./gui/pages/AdminDashboardPage";
 import PlayerPage from "./gui/pages/PlayerPage";
 import PartidosPorJugarPage from "./gui/pages/PartidosPorJugarPage";
 import MasterPage from "./gui/pages/MasterPage";
@@ -32,7 +29,6 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Navigate to="/torneos" />} />
-          <Route path="/tournamentSignUp" element={<TournamentSignUp />} />
           {process.env.REACT_APP_SHOW_REGULATION === "true" ? (
             <Route
               path="/reglamento"
@@ -88,9 +84,7 @@ export default function App() {
               </MasterPage>
             }
           />
-          <Route path="/partidos" element={<PartidosPage />} />
           <Route path="/cargar_resultado" element={<SetMatchResultPage />} />
-          <Route path="/admin_dashboard" element={<AdminDashboardPage />} />
           <Route
             path="/jugadores/:id"
             element={
