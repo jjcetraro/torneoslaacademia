@@ -1,21 +1,9 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import TournamentBracketsComponent from "./gui/components/TournamentBracketsComponent";
-import Match from "./entities/Match";
-import Tournament from "./entities/Tournament";
-import Phase from "./entities/Phase";
-import Player from "./entities/Player";
 import PlayersPage from "./gui/pages/PlayersPage";
-import MyNavbar from "./gui/components/MyNavbar";
-import { Button, Container } from "react-bootstrap";
 import RankingPage from "./gui/pages/RankingPage";
 import TournamentsPage from "./gui/pages/TournamentsPage";
 import MessagePage from "./gui/pages/MessagePage";
-
-import { signInWithGoogle } from "./firebase/Firebase";
-import LoginPage from "./gui/pages/LoginPage";
-import UserProfilePage from "./gui/pages/UserProfilePage";
-import SorteoPage from "./gui/pages/SorteoPage";
 import TournamentPage from "./gui/pages/TournamentPage";
 import RegulationPage from "./gui/pages/RegulationPage";
 import SetMatchResultPage from "./gui/pages/SetMatchResultPage";
@@ -75,7 +63,6 @@ export default function App() {
               </MasterPage>
             }
           />
-          <Route path="/perfil" element={<UserProfilePage />} />
           <Route
             path="/torneos/:id"
             element={
@@ -93,7 +80,6 @@ export default function App() {
               </MasterPage>
             }
           />
-          <Route path="/sorteo" element={<SorteoPage />} />
           <Route path="/partidosPorJugar" element={<PartidosPorJugarPage />} />
         </Routes>
       </BrowserRouter>

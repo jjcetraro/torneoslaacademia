@@ -1,6 +1,5 @@
 // external libraries
 import { useParams } from "react-router-dom";
-import { Col, Row } from "react-bootstrap";
 import Media from "react-media";
 
 import TournamentPageHooks from "../hooks/TournamentPageHooks";

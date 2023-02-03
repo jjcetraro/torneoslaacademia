@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Col, Row } from "react-bootstrap";
 import { getTournament } from "../../api/TournamentAPI";
 import Match from "../../entities/Match";
 import Phase from "../../entities/Phase";
